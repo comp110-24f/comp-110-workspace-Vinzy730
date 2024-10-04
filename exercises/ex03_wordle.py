@@ -38,11 +38,11 @@ def emojified(guess: str, secret: str) -> str:
     # difficulty arranging the if loops to properly output the emojies
     while idx < len(secret):
         if secret[idx] == guess[idx]:
-            idx += 1
             output = output + green_box
-        elif contains_char(secret, guess[idx]):
             idx += 1
+        elif contains_char(secret, guess[idx]):
             output = output + yellow_box
+            idx += 1
         else:
             idx += 1
             output = output + white_box
@@ -58,10 +58,11 @@ def main(secret: str) -> None:
         guess = input_guess(len(secret))
         print(emojified(secret, guess))
         # forgot emojified returns and not print emojies
+        if guess == secret:
+            print(f"You won in {moves}/6 turns!")
         moves += 1
-    if guess == secret:
-        print(f"You won in {moves}/6 turns!")
-    else:
+    # output for turn was one off had to reorganize loop to properly displayed
+    if moves == 7:
         print("X/6 - Sorry, try again tomorrow!")
 
 
